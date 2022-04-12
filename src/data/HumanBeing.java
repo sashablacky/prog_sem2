@@ -131,7 +131,7 @@ public class HumanBeing implements Collectionable {
         s += "  \"hasToothpick\" : " + Boolean.toString(hasToothpick) + ",\n";
         s += "  \"impactSpeed\" : " + Float.toString(impactSpeed) + ",\n";
         s += "  \"minutesOfWaiting\" : " + Long.toString(minutesOfWaiting) + ",\n";
-        s += "  \"weaponType\" : " + weaponType.toString() + ",\n";
+        if (mood!=null) s += "  \"weaponType\" : " + weaponType.toString() + ",\n";
         if (mood!=null) s += "  \"mood\" : " + mood.toString() + ",\n";
         s += "  \"car\" : " + car.toString() + "\n";
         s += "}";
