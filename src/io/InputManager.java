@@ -61,7 +61,7 @@ public interface InputManager {
      * @return
      * @throws InvalidNumberException
      */
-    public long readMinutesOfWaiting() throws InvalidNumberException;
+    public Long readMinutesOfWaiting() throws InvalidNumberException;
 
     /**
      * reads WeaponType from input

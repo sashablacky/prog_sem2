@@ -1,10 +1,13 @@
 package exceptions;
 
 /**
- * thrown when user input is empty
+ * thrown when boolean is not true or false
  */
-public class EmptyStringException extends InvalidDataException {
-    public EmptyStringException(){
-        super("String cannot be empty");
+public class InvalidBooleanException extends InvalidDataException {
+    public InvalidBooleanException(){
+        super("Boolean must be true or false");
+    }
+    public InvalidBooleanException(String msg){
+        super(msg);
     }
 }

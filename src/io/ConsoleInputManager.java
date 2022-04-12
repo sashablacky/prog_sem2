@@ -2,8 +2,6 @@ package io;
 
 import java.util.Scanner;
 
-import java.time.LocalDate;
-
 import data.*;
 import static io.OutputManager.*;
 public class ConsoleInputManager extends InputManagerImpl{
@@ -16,11 +14,6 @@ public class ConsoleInputManager extends InputManagerImpl{
     @Override
     public String readName(){
         return new Question<String>("enter name:", super::readName).getAnswer();
-    }
-
-    @Override
-    public String readFullName(){
-        return new Question<String>("enter name:", super::readFullName).getAnswer();
     }
 
     @Override
@@ -43,47 +36,52 @@ public class ConsoleInputManager extends InputManagerImpl{
     }
 
     @Override
-    public long readSalary(){
-        return new Question<Long>("enter salary:",super::readSalary).getAnswer();
+    public Boolean readRealHero(){
+        return new Question<Boolean>("enter are they a real hero (true/false):",super::readRealHero).getAnswer();
     }
-
     @Override
-    public LocalDate readEndDate(){
-        return new Question<LocalDate>("enter endDate:", super::readEndDate).getAnswer();
+    public Boolean readHasToothpick(){
+        return new Question<Boolean>("enter do they have a toothpick (true/false):",super::readHasToothpick).getAnswer();
     }
-
     @Override
-    public Position readPosition(){
-        return new Question<Position>("enter position(DIRECTOR, MANAGER, ENGINEER, BAKER):", super::readPosition).getAnswer();
+    public float readImpactSpeed(){
+        return new Question<Float>("enter impact speed:",super::readImpactSpeed).getAnswer();
     }
-
     @Override
-    public Status readStatus(){
-        return new Question<Status>("enter status(RECOMMENDED_FOR_PROMOTION, REGULAR, PROBATION):", super::readStatus).getAnswer();
+    public Long readMinutesOfWaiting(){
+        return new Question<Long>("enter minutes of waiting:",super::readMinutesOfWaiting).getAnswer();
     }
-
     @Override
-    public OrganizationType readOrganizationType(){
-        return new Question<OrganizationType>("enter organization type(PUBLIC, GOVERNMENT, PRIVATE_LIMITED_COMPANY, OPEN_JOINT_STOCK_COMPANY):", super::readOrganizationType).getAnswer();
+    public WeaponType readWeaponType(){
+        return new Question<WeaponType>("enter weapon type (AXE, SHOTGUN, MACHINE_GUN):", super::readWeaponType).getAnswer();
     }
-
     @Override
-    public Organization readOrganization(){
-        print("enter organization");
-        String fullName = readFullName();
-        OrganizationType orgType = readOrganizationType();
-        return new Organization(fullName, orgType);
+    public Mood readMood(){
+        return new Question<Mood>("enter mood (SORROW, LONGING, GLOOM, CALM):", super::readMood).getAnswer();
+    }
+    @Override
+    public Boolean readCoolness(){
+        return new Question<Boolean>("enter if the car is cool (true/false):", super::readCoolness).getAnswer();
+    }
+    @Override
+    public Car readCar(){
+        print("enter car");
+        Boolean isCool = readCoolness();
+        return new Car(isCool);
     }
 
     @Override
     public HumanBeing readHumanBeing(){
         String name = readName();
         Coordinates coords = readCoords();
-        long salary = readSalary();
-        LocalDate date = readEndDate();
-        Position pos = readPosition();
-        Status stat = readStatus();
-        Organization org = readOrganization();
-        return new HumanBeing(name, coords, salary, date, pos, stat, org);
+        Boolean realHero = readRealHero();
+        Boolean hasToothpick = readHasToothpick();
+        float impactSpeed = readImpactSpeed();
+        long minutesOfWaiting = readMinutesOfWaiting();
+        WeaponType weaponType = readWeaponType();
+        Mood mood = readMood();
+        Car car = readCar();
+        HumanBeing person = new HumanBeing(name, coords, realHero, hasToothpick, impactSpeed, minutesOfWaiting, weaponType, mood, car);
+        return person;
     }
 }

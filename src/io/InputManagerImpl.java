@@ -53,7 +53,7 @@ public abstract class InputManagerImpl implements InputManager{
         catch(NumberFormatException e){
             throw new InvalidNumberException();
         }
-        if (y<=-123) throw new InvalidNumberException("must be greater than -123");
+        if (y>=-684) throw new InvalidNumberException("must be greater than -684");
         return y;
     }
     public Coordinates readCoords() throws InvalidNumberException{
@@ -62,83 +62,141 @@ public abstract class InputManagerImpl implements InputManager{
         Coordinates coord = new Coordinates(x,y);
         return coord;
     }
+    public Boolean parseBool(String buf) throws InvalidBooleanException{
+        Boolean bool = null;
+        if (buf.toLowerCase() == "true"){
+            bool = true;
+        } if (buf.toLowerCase() == "false"){
+            bool = false;
+        }
+        if (buf.toLowerCase() == ""){
+            bool = null;
+        }
+        else{
+            throw new InvalidBooleanException("boolean must be true, false or null");
+        }
+        return bool;
+    }
 
-    public Boolean readRealHero() throws InvalidBooleanException{
-        Boolean bool =;
+    public Boolean readRealHero() {
+        String buf = scanner.nextLine().trim();
+        Boolean bool = null;
         try
         {
-            if (bool != null && bool)
+            bool = parseBool(buf);
+            if (bool == null)
             {
-                //DoSomething
+                throw new InvalidBooleanException("realHero must not be null");
             }
         }
         catch (Exception e)
         {
             System.out.println(e.getMessage());
         }
+        return bool;
+    }
+    public Boolean readHasToothpick() {
+        String buf = scanner.nextLine().trim();
+        Boolean bool = null;
+        try
+        {
+            bool = parseBool(buf);
+            if (bool == null)
+            {
+                throw new InvalidBooleanException("hasToothpick must not be null");
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+        return bool;
     }
 
-    public LocalDate readEndDate() throws InvalidDateFormatException{
+    public float readImpactSpeed() throws InvalidNumberException{
+        float impactSpeed;
+        try{
+            impactSpeed = Float.parseFloat(scanner.nextLine());
+        }
+        catch(NumberFormatException e){
+            throw new InvalidNumberException();
+        }
+        if (Float.isInfinite(impactSpeed) || Float.isNaN(impactSpeed)) throw new InvalidNumberException("invalid float value");
+        if (impactSpeed > 64.0f) throw new InvalidNumberException("impact speed must not be greater than 64");
+        return impactSpeed;
+    }
+    public Long readMinutesOfWaiting() throws InvalidNumberException{
+        Long minutesOfWaiting;
+        try{
+            minutesOfWaiting = Long.parseLong(scanner.nextLine());
+        }
+        catch(NumberFormatException e){
+            throw new InvalidNumberException();
+        }
+       return minutesOfWaiting;
+    }
+    public WeaponType readWeaponType() throws InvalidEnumException{
         String buf = scanner.nextLine().trim();
         if(buf.equals("")){
             return null;
-        }
-        else{
-            return parseLocalDate(buf);
-        }
-    }
-
-    public Position readPosition() throws InvalidEnumException{
-        String s = scanner.nextLine().trim();
-        if(s.equals("")){
-            return null;
-        }
+        } 
         else {
             try{
-                return Position.valueOf(s);
+                return WeaponType.valueOf(buf);
             } catch(IllegalArgumentException e){
                 throw new InvalidEnumException();
             }
         }
     }
-
-    public Status readStatus() throws InvalidEnumException{
-        String s = scanner.nextLine().trim();
-        try{
-            return Status.valueOf(s);
-        } catch(IllegalArgumentException e){
-            throw new InvalidEnumException();
+    public Mood readMood() throws InvalidEnumException{
+        String buf = scanner.nextLine().trim();
+        if(buf.equals("")){
+            return null;
+        } 
+        else {
+            try{
+                return Mood.valueOf(buf);
+            } catch(IllegalArgumentException e){
+                throw new InvalidEnumException();
+            }
         }
     }
-
-    public OrganizationType readOrganizationType() throws InvalidEnumException{
-        String s = scanner.nextLine().trim();
-        try{
-            return OrganizationType.valueOf(s);
-        } catch(IllegalArgumentException e){
-            throw new InvalidEnumException();
+    public Boolean readCoolness() throws InvalidBooleanException{
+        String buf = scanner.nextLine().trim();
+        Boolean isCool = null;
+        try
+        {
+            isCool = parseBool(buf);
+            if (isCool == null)
+            {
+                throw new InvalidBooleanException("Coolness must not be null");
+            }
         }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+        return isCool;
     }
-
-    public Organization readOrganization() throws InvalidDataException{
-        String fullName = readFullName();
-        OrganizationType orgType = readOrganizationType();
-        return new Organization(fullName, orgType);
+    public Car readCar() throws InvalidDataException{
+        Boolean isCool = readCoolness();
+        return new Car(isCool);
     }
-
-    public Worker readWorker() throws InvalidDataException{
-        Worker worker = null;
+    public HumanBeing readHumanBeing() throws InvalidDataException{
+        HumanBeing person = null;
 
         String name = readName();
         Coordinates coords = readCoords();
-        long salary = readSalary();
-        LocalDate date = readEndDate();
-        Position pos = readPosition();
-        Status stat = readStatus();
-        Organization org = readOrganization();
-        worker = new Worker(name, coords, salary, date, pos, stat, org);
+        Boolean realHero = readRealHero();
+        Boolean hasToothpick = readHasToothpick();
+        float impactSpeed = readImpactSpeed();
+        long minutesOfWaiting = readMinutesOfWaiting();
+        WeaponType weaponType = readWeaponType();
+        Mood mood = readMood();
+        Car car = readCar();
+        person = new HumanBeing(name, coords, realHero, hasToothpick, impactSpeed, minutesOfWaiting, weaponType, mood, car);
 
-        return worker;
+        return person;
 
     }
 
