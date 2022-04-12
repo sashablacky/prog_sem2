@@ -9,14 +9,13 @@ import java.util.Stack;
 import collection.CollectionManager;
 import data.*;
 import exceptions.*;
-import file.FileManager;
-import file.ReaderWriter;
+import file.FileInterface;
 import io.*;
 public class CommandManager implements Commandable{
     private Map<String,Command> map;
     private CollectionManager<HumanBeing> collectionManager;
     private InputManager inputManager;
-    private FileManager fileManager;
+    private FileInterface fileManager;
     private boolean isRunning;
     private String currentScriptFileName;
 
@@ -25,7 +24,7 @@ public class CommandManager implements Commandable{
     public void clearStack(){
         callStack.clear();
     }
-    public CommandManager(CollectionManager<HumanBeing> cManager, InputManager iManager, FileManager fManager){
+    public CommandManager(CollectionManager<HumanBeing> cManager, InputManager iManager, FileInterface fManager){
 
         isRunning = false;
         this.inputManager = iManager;
@@ -38,8 +37,10 @@ public class CommandManager implements Commandable{
         addCommand("help", (a)->print(getHelp()));
         addCommand("show", (a)->{
             if (collectionManager.getCollection().isEmpty()) print("Collection is empty");
-            else print(collectionManager.serializeCollection());
-        });
+            else for (HumanBeing humanBeing: collectionManager.getCollection()){
+                print(humanBeing.toString());
+                }
+            });
         addCommand("add", (a)->{
             collectionManager.add(inputManager.readHumanBeing());
         });
@@ -78,12 +79,10 @@ public class CommandManager implements Commandable{
         addCommand("clear", (a)->{
             collectionManager.clear();
         });
-
         addCommand("save", (arg)->{
             if (!(arg == null ||arg.equals(""))) fileManager.setPath(arg);
             if (collectionManager.getCollection().isEmpty()) print("Collection is empty, nothing to save");
-            if(!fileManager.write(collectionManager.serializeCollection())) throw new CommandException("Cannot save collection");
-            
+            if(!fileManager.write(collectionManager.getCollection())) throw new CommandException("Cannot save collection");
         });
         addCommand("execute_script",(arg)->{
             if (arg == null || arg.equals("")){
@@ -96,7 +95,7 @@ public class CommandManager implements Commandable{
             CommandManager process = new CommandManager(collectionManager, inputManager, fileManager);
             process.fileMode(arg);
             callStack.pop();
-            print("successfully executed script " + arg);
+            print("Successfully executed script " + arg);
             
         });
         addCommand("exit", (a)->isRunning=false);
@@ -104,31 +103,21 @@ public class CommandManager implements Commandable{
             if (collectionManager.getCollection().isEmpty()) throw new EmptyCollectionException();
             collectionManager.removeFirst();
         });
-        addCommand("add_if_max", (a)->collectionManager.addIfMax(inputManager.readWorker()));
-        addCommand("add_if_min", (a)->collectionManager.addIfMin(inputManager.readWorker()));
-        addCommand("group_counting_by_end_date", (a)->{
+        addCommand("remove_last", (a)->{
             if (collectionManager.getCollection().isEmpty()) throw new EmptyCollectionException();
-            collectionManager.groupByEndDate();
+            collectionManager.removeLast();
         });
-        addCommand("filter_starts_with_name", (arg)->{
-            if (arg == null || arg.equals("")){
-                throw new MissedCommandArgumentException();
-            } else{
-                if (collectionManager.getCollection().isEmpty()) throw new EmptyCollectionException();
-                collectionManager.printStartsWithName(arg);
-            }
-        });
-        addCommand("print_unique_salary", (a)->{
+        addCommand("sum_of_minutes_of_waiting", (a)->{
             if (collectionManager.getCollection().isEmpty()) throw new EmptyCollectionException();
-            collectionManager.printUniqueSalary();
+            collectionManager.sum_of_minutes_of_waiting();
         });
-
-        addCommand("load", (arg)->{
-            if (!(arg == null ||arg.equals(""))) fileManager.setPath(arg);
-            String data = fileManager.read();
-            if(data.equals("")) throw new CommandException("cannot load, data not found");
-            boolean success = collectionManager.deserializeCollection(data);
-            if(success) print("collection successfully loaded");
+        addCommand("min_by_minutes_of_waiting", (a)->{
+            if (collectionManager.getCollection().isEmpty()) throw new EmptyCollectionException();
+            collectionManager.min_by_minutes_of_waiting();
+        });
+        addCommand("print_unique_impact_speed", (a)->{
+            if (collectionManager.getCollection().isEmpty()) throw new EmptyCollectionException();
+            collectionManager.print_unique_impact_speed();
         });
     }
 

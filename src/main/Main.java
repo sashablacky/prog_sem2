@@ -5,7 +5,8 @@ import io.*;
 
 import java.io.PrintStream;
 import collection.CollectionManager;
-import collection.WorkerCollectionManager;
+import collection.HumanBeingCollectionManager;
+import java.util.Map;
 
 import static io.OutputManager.*;
 
@@ -15,10 +16,12 @@ public class Main {
     public static void main(String[] args) throws Exception {
         System.setOut(new PrintStream(System.out, true, "UTF-8"));
         FileManager fileManager = new FileManager();
-        CollectionManager<Human> collectionManager = new HumanCollectionManager();
+        CollectionManager<HumanBeing> collectionManager = new HumanBeingCollectionManager();
+        Map<String, String> env = System.getenv();
+        String path = env.get("COLLECTION_PATH");
         if (args.length!=0){
             fileManager.setPath(args[0]);
-            collectionManager.deserializeCollection(fileManager.read());
+            collectionManager.deserializeCollection(path);
         } else{
             print("no file passed by argument. you can load file using load command");
         }

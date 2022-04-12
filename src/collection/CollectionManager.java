@@ -1,5 +1,7 @@
 package collection;
-import java.util.Vector;
+import java.util.LinkedList;
+
+import data.HumanBeing;
 
 /**
  * interface for storing elements
@@ -14,7 +16,7 @@ public interface CollectionManager<T> {
 
     public void sort();
     
-    public Vector<T> getCollection();
+    public LinkedList<T> getCollection();
 
     /**
      * adds new element
@@ -58,42 +60,18 @@ public interface CollectionManager<T> {
 
     public void removeFirst();
 
-    /**
-     * adds element if it is greater than max
-     * @param element
-     */
-    public void addIfMax(T element);
+    public void removeLast();
+
+    public long sum_of_minutes_of_waiting();
+
+    public HumanBeing min_by_minutes_of_waiting();
+
+    public void print_unique_impact_speed();
 
     /**
-     * adds element if it is smaller than min
-     * @param element
-     */
-    public void addIfMin(T element);
-
-    /**
-     * print all elements which name starts with substring
-     * @param start
-     */
-    public void printStartsWithName(String start);
-
-    public void groupByEndDate();
-
-    /**
-     * print all unique values of salary field
-     */
-    public void printUniqueSalary();
-
-    /**
-     * convert collection to json
-     * @param json
-     * @return true if success, false if not
-     */
-    public boolean deserializeCollection(String json);
-
-    /**
-     * parse collection from json
+     * parse collection from xml
      * @return
      */
-    public String serializeCollection();
+    public void deserializeCollection(String xml);
 
 }
