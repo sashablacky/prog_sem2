@@ -53,7 +53,7 @@ public abstract class InputManagerImpl implements InputManager{
         catch(NumberFormatException e){
             throw new InvalidNumberException();
         }
-        if (y>=-684) throw new InvalidNumberException("must be greater than -684");
+        if (y<=-684) throw new InvalidNumberException("must be greater than -684");
         return y;
     }
     public Coordinates readCoords() throws InvalidNumberException{
@@ -62,14 +62,15 @@ public abstract class InputManagerImpl implements InputManager{
         Coordinates coord = new Coordinates(x,y);
         return coord;
     }
-    public Boolean parseBool(String buf) throws InvalidBooleanException{
+    public Boolean parseBool() throws InvalidBooleanException{
+        String buf = scanner.nextLine();
         Boolean bool = null;
-        if (buf.toLowerCase() == "true"){
+        System.out.println(buf.toLowerCase());
+        if (buf.toLowerCase().equals("true")){
             bool = true;
-        } if (buf.toLowerCase() == "false"){
+        } else if (buf.toLowerCase().equals("false")){
             bool = false;
-        }
-        if (buf.toLowerCase() == ""){
+        } else if (buf.toLowerCase().equals("")){
             bool = null;
         }
         else{
@@ -78,38 +79,22 @@ public abstract class InputManagerImpl implements InputManager{
         return bool;
     }
 
-    public Boolean readRealHero() {
-        String buf = scanner.nextLine().trim();
+    public Boolean readRealHero() throws InvalidBooleanException{
         Boolean bool = null;
-        try
-        {
-            bool = parseBool(buf);
+            bool = parseBool();
             if (bool == null)
             {
                 throw new InvalidBooleanException("realHero must not be null");
             }
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
         return bool;
     }
-    public Boolean readHasToothpick() {
-        String buf = scanner.nextLine().trim();
+    public Boolean readHasToothpick() throws InvalidBooleanException{
         Boolean bool = null;
-        try
-        {
-            bool = parseBool(buf);
+            bool = parseBool();
             if (bool == null)
             {
                 throw new InvalidBooleanException("hasToothpick must not be null");
             }
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
         return bool;
     }
 
@@ -162,20 +147,12 @@ public abstract class InputManagerImpl implements InputManager{
         }
     }
     public Boolean readCoolness() throws InvalidBooleanException{
-        String buf = scanner.nextLine().trim();
         Boolean isCool = null;
-        try
-        {
-            isCool = parseBool(buf);
+            isCool = parseBool();
             if (isCool == null)
             {
                 throw new InvalidBooleanException("Coolness must not be null");
             }
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
         return isCool;
     }
     public Car readCar() throws InvalidDataException{

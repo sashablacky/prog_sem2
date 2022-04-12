@@ -5,18 +5,17 @@ import exceptions.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
-import java.io.FileWriter;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.Collection;
 
-import javax.annotation.processing.FilerException;
+import data.HumanBeing;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
+import java.beans.ExceptionListener;
+import java.beans.XMLEncoder;
 
 public class FileManager implements FileInterface{
-    private InputStream inputStream;
     private String path;
 
     public FileManager(String pth){
@@ -38,7 +37,7 @@ public class FileManager implements FileInterface{
             BufferedInputStream reader = null;
             File file = new File(path);
             if (!file.exists()) throw new FileDoesNotExistException();
-            if(!file.Readable()) throw new FileWrongPermissionsException("cannot read file");
+            if(!file.canRead()) throw new FileWrongPermissionsException("cannot read file");
             reader = new BufferedInputStream(new FileInputStream(file));
             int curSymbol;
             while ((curSymbol = reader.read()) != -1) {
@@ -61,5 +60,36 @@ public class FileManager implements FileInterface{
             throw new CreatingFileException();
         }
     }
+    public boolean write(Collection<HumanBeing> collection){
+        boolean res = true;
+        try{
+            if (path == null) throw new NoPathException();
 
+            File file = new File(path);
+
+            if(!file.exists()) {
+                print("file " + path +" does not exist, trying to create it");
+                create(file);
+            };
+            if(!file.canWrite()) throw new FileWrongPermissionsException("Cannot write file");
+            FileOutputStream fos = new FileOutputStream(file);
+            XMLEncoder encoder = new XMLEncoder(fos);
+  encoder.setExceptionListener(new ExceptionListener() {
+          public void exceptionThrown(Exception e) {
+            System.out.println("Exception! :"+e.toString());
+          }
+  });
+  encoder.writeObject(collection);
+  encoder.close();
+  fos.close();
+        } catch(FileException e){
+            printErr(e.getMessage());
+            res = false;
+        } catch (IOException e) {
+
+            res = false;
+            printErr("cannot access file");
+        }
+        return res;
+    }
 }
