@@ -122,6 +122,10 @@ public class CommandManager implements Commandable{
             if (collectionManager.getCollection().isEmpty()) throw new EmptyCollectionException();
             collectionManager.removeLast();
         });
+        addCommand("shuffle", (a)->{
+            if (collectionManager.getCollection().isEmpty()) throw new EmptyCollectionException();
+            collectionManager.shuffle();
+        });
         addCommand("sum_of_minutes_of_waiting", (a)->{
             if (collectionManager.getCollection().isEmpty()) throw new EmptyCollectionException();
             collectionManager.sum_of_minutes_of_waiting();
@@ -185,6 +189,7 @@ public class CommandManager implements Commandable{
         "remove_by_id id : удалить элемент из коллекции по его id",
         "clear : очистить коллекцию",
         "save : сохранить коллекцию в файл",
+        "load : прочитать коллекцию из файла"
         "execute_script file_name : считать и исполнить скрипт из указанного файла. В скрипте содержатся команды в таком же виде, в котором их вводит пользователь в интерактивном режиме.",
         "exit : завершить программу (без сохранения в файл)",
         "remove_first : удалить первый элемент из коллекции",
