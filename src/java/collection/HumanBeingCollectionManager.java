@@ -1,17 +1,19 @@
 package collection;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Collections;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import data.HumanBeing;
+import exceptions.FileException;
+
 import java.beans.XMLDecoder;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedList;
 
-import data.HumanBeing;
-import exceptions.FileException;
-
-import static io.OutputManager.*;
+import static io.OutputManager.print;
+import static io.OutputManager.printErr;
 
 //@Alias LinkedList<HumanBeing>  NameToNumbers;
 /**
@@ -63,7 +65,7 @@ public class HumanBeingCollectionManager implements CollectionManager<HumanBeing
 
     /**
      * Add element to collection
-     * @param worker Element of collection
+     * @param humanBeing Element of collection
      */
     public void add(HumanBeing humanBeing){
         humanBeing.setId(generateNextId());
@@ -192,5 +194,19 @@ public class HumanBeingCollectionManager implements CollectionManager<HumanBeing
         } catch(IOException e){
             printErr(e.toString());
         } 
+    }
+
+    public String serializeCollection() throws IOException {
+        try {
+            if (collection == null || collection.isEmpty()) return "";
+
+            XmlMapper xmlMapper = new XmlMapper();
+
+            xmlMapper.writeValueAsString(new HumanBeingCollectionManager());
+
+        } catch(IOException e){
+            printErr(e.toString());
+        }
+        return null;
     }
 }

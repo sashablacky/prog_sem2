@@ -1,7 +1,8 @@
 package io;
-import static io.OutputManager.*;
 
-import exceptions.*;
+import exceptions.InvalidDataException;
+
+import static io.OutputManager.printErr;
 
 /**
  * user input wrapper

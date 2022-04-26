@@ -2,6 +2,8 @@ package data;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Human class
  */
@@ -30,13 +32,13 @@ public class HumanBeing implements Collectionable {
      * @param mood
      * @param car
      */
-    public HumanBeing(String name, Coordinates coordinates, Boolean realHero, Boolean hasTooothpick, float impactSpeed, long minutesOfWaiting, WeaponType weaponType, Mood mood, Car car){
+    public HumanBeing(String name, Coordinates coordinates, Boolean realHero, Boolean hasToothpick, float impactSpeed, long minutesOfWaiting, WeaponType weaponType, Mood mood, Car car){
         creationDate = new java.util.Date();
         
         this.name = name;
         this.coordinates = coordinates;
         this.realHero = realHero;
-        this.hasToothpick = hasTooothpick;
+        this.hasToothpick = hasToothpick;
         this.impactSpeed = impactSpeed;
         this.minutesOfWaiting = minutesOfWaiting;
         this.weaponType = weaponType;
@@ -65,18 +67,44 @@ public class HumanBeing implements Collectionable {
         return name;
     }
 
+
+    public void setName(String NewName){
+        name = NewName;
+    }
+
+    /**
+     * @return Coordinates
+     */
+    public Coordinates getCoordinates() {return coordinates; }
+
+    public void setCoordinates(Coordinates NewCoordinates) {coordinates = NewCoordinates; }
+
+    /**
+     * @return CreationDate
+     */
+
+    public Date getCreationDate() {return creationDate; }
+
+    public void setCreationDate(Date NewCreationDate) {creationDate = NewCreationDate; }
     /** 
      * @return Boolean
      */
-    public Boolean isRealHero(){
+    public Boolean getRealHero(){
         return realHero;
     }
 
+    public void setRealHero(Boolean NewRealHero){
+        realHero = NewRealHero;
+    }
     /** 
      * @return Boolean
      */
-    public Boolean doesHaveToothpick(){
-        return hasToothpick;
+    public Boolean getHasToothpick(){
+        return realHero;
+    }
+
+    public void setHasToothpick(Boolean NewRealHero){
+        realHero = NewRealHero;
     }
 
     /** 
@@ -86,11 +114,19 @@ public class HumanBeing implements Collectionable {
         return impactSpeed;
     }
 
+    public void setImpactSpeed(float NewImpactSpeed){
+        impactSpeed = NewImpactSpeed;
+    }
+
     /** 
      * @return long
      */
     public long getMinutesOfWaiting(){
         return minutesOfWaiting;
+    }
+
+    public void setMinutesOfWaiting(long NewMinutesOfWaiting){
+        minutesOfWaiting = NewMinutesOfWaiting;
     }
 
     /**
@@ -100,6 +136,10 @@ public class HumanBeing implements Collectionable {
         return weaponType;
     }
 
+    public void setWeaponType(WeaponType NewWeaponType){
+        weaponType = NewWeaponType;
+    }
+
     /**
      * @return Mood
      */
@@ -107,12 +147,16 @@ public class HumanBeing implements Collectionable {
         return mood;
     }
 
+    public void setMood(Mood NewMood) {mood = NewMood;}
+
     /**
      * @return Car
      */
     public Car getCar(){
         return car;
     }
+
+    public void setCar(Car NewCar) {car = NewCar;}
     
     /**
      * @return String

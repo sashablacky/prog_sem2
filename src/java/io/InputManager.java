@@ -1,10 +1,10 @@
 package io;
 
-import java.util.Scanner;
-
 import commands.CommandWrapper;
 import data.*;
 import exceptions.*;
+
+import java.util.Scanner;
 
 public interface InputManager {
     /**

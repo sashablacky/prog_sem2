@@ -1,7 +1,8 @@
 package collection;
-import java.util.LinkedList;
 
 import data.HumanBeing;
+
+import java.util.LinkedList;
 
 /**
  * interface for storing elements

@@ -14,6 +14,10 @@ public class Car implements Validateable {
         return cool;
     }
 
+    public void setCool(Boolean cool){
+
+    }
+
     /** 
      * @return String
      */

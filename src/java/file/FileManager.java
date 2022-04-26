@@ -1,19 +1,15 @@
 package file;
 
-import static io.OutputManager.*;
-import exceptions.*;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileInputStream;
-
-import java.io.IOException;
-import java.util.Collection;
-
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import data.HumanBeing;
+import exceptions.*;
 
-import java.io.BufferedInputStream;
-import java.beans.ExceptionListener;
-import java.beans.XMLEncoder;
+import java.io.*;
+import java.util.Collection;
+import java.util.LinkedList;
+
+import static io.OutputManager.print;
+import static io.OutputManager.printErr;
 
 public class FileManager implements FileInterface{
     private String path;
@@ -38,19 +34,20 @@ public class FileManager implements FileInterface{
             File file = new File(path);
             if (!file.exists()) throw new FileDoesNotExistException();
             if(!file.canRead()) throw new FileWrongPermissionsException("cannot read file");
-            reader = new BufferedInputStream(new FileInputStream(file));
-            int curSymbol;
-            while ((curSymbol = reader.read()) != -1) {
-                res += ((char)curSymbol);
-            }
-            reader.close();     
+            StringBuilder sb = new StringBuilder();
+            String line;
+            XmlMapper xmlMapper = new XmlMapper();
+            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
+            LinkedList value = xmlMapper.readValue(bis, LinkedList.class);
+            bis.close();
+
         }
         catch(FileException e){
             printErr(e.getMessage());
         }  catch(IOException e){
             printErr("File could not be accessed");
         }
-        return res;
+    return value;
     }
 
     private void create(File file) throws CreatingFileException{
@@ -73,15 +70,9 @@ public class FileManager implements FileInterface{
             };
             if(!file.canWrite()) throw new FileWrongPermissionsException("Cannot write file");
             FileOutputStream fos = new FileOutputStream(file);
-            XMLEncoder encoder = new XMLEncoder(fos);
-  encoder.setExceptionListener(new ExceptionListener() {
-          public void exceptionThrown(Exception e) {
-            System.out.println("Exception! :"+e.toString());
-          }
-  });
-  encoder.writeObject(collection);
-  encoder.close();
-  fos.close();
+            XmlMapper mapper = new XmlMapper();
+            mapper.writeValue(fos, collection);
+            fos.close();
         } catch(FileException e){
             printErr(e.getMessage());
             res = false;

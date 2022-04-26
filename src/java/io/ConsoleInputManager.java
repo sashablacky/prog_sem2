@@ -1,9 +1,10 @@
 package io;
 
+import data.*;
+
 import java.util.Scanner;
 
-import data.*;
-import static io.OutputManager.*;
+import static io.OutputManager.print;
 public class ConsoleInputManager extends InputManagerImpl{
 
     public ConsoleInputManager(){

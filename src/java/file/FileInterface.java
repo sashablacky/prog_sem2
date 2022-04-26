@@ -1,7 +1,8 @@
 package file;
-import java.util.Collection;
 
 import data.HumanBeing;
+
+import java.util.Collection;
 public interface FileInterface {
     /**
      * set path to file
@@ -17,7 +18,7 @@ public interface FileInterface {
 
     /**
      * write data
-     * @param data
+     * @param collection
      */
     public boolean write(Collection<HumanBeing> collection);
 }

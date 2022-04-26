@@ -1,16 +1,19 @@
 package commands;
 
-import static io.OutputManager.*;
+import collection.CollectionManager;
+import data.HumanBeing;
+import exceptions.*;
+import file.FileInterface;
+import io.ConsoleInputManager;
+import io.FileInputManager;
+import io.InputManager;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
-import collection.CollectionManager;
-import data.*;
-import exceptions.*;
-import file.FileInterface;
-import io.*;
+import static io.OutputManager.print;
+import static io.OutputManager.printErr;
 public class CommandManager implements Commandable{
     private Map<String,Command> map;
     private CollectionManager<HumanBeing> collectionManager;
