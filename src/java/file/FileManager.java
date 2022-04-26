@@ -5,6 +5,7 @@ import data.HumanBeing;
 import exceptions.*;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -26,7 +27,7 @@ public class FileManager implements FileInterface{
         path = null;
     }
 
-    public String read(){
+    public LinkedList read(){
         String res = "";
         try{
             if (path == null) throw new NoPathException();
@@ -35,12 +36,11 @@ public class FileManager implements FileInterface{
             if (!file.exists()) throw new FileDoesNotExistException();
             if(!file.canRead()) throw new FileWrongPermissionsException("cannot read file");
             StringBuilder sb = new StringBuilder();
-            String line;
             XmlMapper xmlMapper = new XmlMapper();
-            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
-            LinkedList value = xmlMapper.readValue(bis, LinkedList.class);
+            String xmlString = read_xml_String(file);
+            LinkedList value = xmlMapper.readValue(read_xml_string(bis), LinkedList.class);
             bis.close();
-
+            return value;
         }
         catch(FileException e){
             printErr(e.getMessage());
@@ -48,6 +48,12 @@ public class FileManager implements FileInterface{
             printErr("File could not be accessed");
         }
     return value;
+    }
+    private String read_xml_String(File file){
+        BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
+        byte[] bytes = bis.readAllBytes();
+        String res = new String(bytes, StandardCharsets.UTF_8);
+        return res;
     }
 
     private void create(File file) throws CreatingFileException{

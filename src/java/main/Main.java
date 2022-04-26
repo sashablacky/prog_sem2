@@ -25,7 +25,7 @@ public class Main {
             fileManager.setPath(args[0]);
             collectionManager.deserializeCollection(path);
         } else{
-            print("no file passed by argument. you can load file using load command");
+            print("no file passed by env var");
         }
         
         InputManager consoleManager = new ConsoleInputManager();
