@@ -10,6 +10,7 @@ import io.InputManager;
 
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.util.LinkedList;
 import java.util.Map;
 
 import static io.OutputManager.print;
@@ -23,7 +24,13 @@ public class Main {
         String path = env.get("COLLECTION_PATH");
         if (args.length!=0){
             fileManager.setPath(args[0]);
-            collectionManager.deserializeCollection(path);
+            LinkedList<HumanBeing> data = fileManager.load();
+            if (data.size()!=0) {
+                collectionManager.load(data);
+            }
+            else{
+                print("nothing to load, creating new collection");
+            }
         } else{
             print("no file passed by env var");
         }

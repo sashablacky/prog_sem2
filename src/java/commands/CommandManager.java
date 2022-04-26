@@ -9,6 +9,7 @@ import io.FileInputManager;
 import io.InputManager;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Stack;
 
@@ -87,6 +88,17 @@ public class CommandManager implements Commandable{
             if (collectionManager.getCollection().isEmpty()) print("Collection is empty, nothing to save");
             if(!fileManager.write(collectionManager.getCollection())) throw new CommandException("Cannot save collection");
         });
+        addCommand("load", (arg)->{
+            if (!(arg == null ||arg.equals(""))) fileManager.setPath(arg);
+            LinkedList<HumanBeing> data = fileManager.load();
+            if(data.equals("")) throw new CommandException("cannot load, data not found");
+            collectionManager.load(data);
+            if (collectionManager.getSize() != 0){
+            print("collection successfully loaded");}
+            else{
+                print("nothing to load");
+            }
+        });
         addCommand("execute_script",(arg)->{
             if (arg == null || arg.equals("")){
                 throw new MissedCommandArgumentException();
@@ -122,6 +134,7 @@ public class CommandManager implements Commandable{
             if (collectionManager.getCollection().isEmpty()) throw new EmptyCollectionException();
             collectionManager.print_unique_impact_speed();
         });
+
     }
 
     public void addCommand(String key, Command c){
@@ -152,7 +165,7 @@ public class CommandManager implements Commandable{
             runCommand(pair.getCommand(), pair.getArg());
         }
     }
-    public void fileMode(String path){
+    public void fileMode(String path) {
         currentScriptFileName = path;
         isRunning = true;
         inputManager = new FileInputManager(path);

@@ -1,13 +1,14 @@
 package io;
-import java.util.Scanner;
 
 import file.FileManager;
+
+import java.util.Scanner;
 /**
  * Operates input
  */
 public class FileInputManager extends InputManagerImpl{
     public FileInputManager(String path){
-        super(new Scanner(new FileManager(path).read()));
+        super(new Scanner(new FileManager().read(path)));
         getScanner().useDelimiter("\n");
     }
 }

@@ -6,7 +6,7 @@ public class Coordinates implements Validateable{
         this.x = x;
         this.y = y;
     }
-
+    public Coordinates(){}
     /**
      * @return x coord
      */

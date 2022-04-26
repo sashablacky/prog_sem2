@@ -1,11 +1,10 @@
 package io;
 
-import java.util.Scanner;
-
 import commands.CommandWrapper;
-
 import data.*;
 import exceptions.*;
+
+import java.util.Scanner;
 
 /**
  * basic implementation of InputManager
@@ -65,7 +64,6 @@ public abstract class InputManagerImpl implements InputManager{
     public Boolean parseBool() throws InvalidBooleanException{
         String buf = scanner.nextLine();
         Boolean bool = null;
-        System.out.println(buf.toLowerCase());
         if (buf.toLowerCase().equals("true")){
             bool = true;
         } else if (buf.toLowerCase().equals("false")){
@@ -121,7 +119,7 @@ public abstract class InputManagerImpl implements InputManager{
        return minutesOfWaiting;
     }
     public WeaponType readWeaponType() throws InvalidEnumException{
-        String buf = scanner.nextLine().trim();
+        String buf = scanner.nextLine().trim().toUpperCase();
         if(buf.equals("")){
             return null;
         } 
@@ -134,7 +132,7 @@ public abstract class InputManagerImpl implements InputManager{
         }
     }
     public Mood readMood() throws InvalidEnumException{
-        String buf = scanner.nextLine().trim();
+        String buf = scanner.nextLine().trim().toUpperCase();
         if(buf.equals("")){
             return null;
         } 

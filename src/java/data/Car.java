@@ -6,7 +6,7 @@ public class Car implements Validateable {
     public Car(Boolean howCool){
         cool = howCool;
     }
-
+    public Car(){}
     /** 
      * @return Boolean
      */
@@ -14,8 +14,7 @@ public class Car implements Validateable {
         return cool;
     }
 
-    public void setCool(Boolean cool){
-
+    public void setCool(Boolean cool){ this.cool = cool;
     }
 
     /** 

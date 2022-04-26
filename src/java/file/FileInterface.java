@@ -3,6 +3,8 @@ package file;
 import data.HumanBeing;
 
 import java.util.Collection;
+import java.util.LinkedList;
+
 public interface FileInterface {
     /**
      * set path to file
@@ -14,8 +16,8 @@ public interface FileInterface {
      * read data
      * @return
      */
-    public String read();
-
+    public LinkedList load();
+    public String read(String ScriptPath);
     /**
      * write data
      * @param collection

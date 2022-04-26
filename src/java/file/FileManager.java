@@ -1,5 +1,6 @@
 package file;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import data.HumanBeing;
 import exceptions.*;
@@ -26,33 +27,43 @@ public class FileManager implements FileInterface{
     public FileManager(){
         path = null;
     }
-
-    public LinkedList read(){
+    public String read(String ScriptPath){
         String res = "";
+        try {
+            File file = new File(ScriptPath);
+            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
+            byte[] bytes = bis.readAllBytes();
+            res = new String(bytes, StandardCharsets.UTF_8);
+            bis.close();
+        }
+        catch (IOException e){
+            printErr(e.getMessage());
+        }
+        return res;
+    }
+    public LinkedList<HumanBeing> load(){
+        LinkedList<HumanBeing> value = new LinkedList<HumanBeing>();
         try{
             if (path == null) throw new NoPathException();
-            BufferedInputStream reader = null;
             File file = new File(path);
             if (!file.exists()) throw new FileDoesNotExistException();
             if(!file.canRead()) throw new FileWrongPermissionsException("cannot read file");
-            StringBuilder sb = new StringBuilder();
             XmlMapper xmlMapper = new XmlMapper();
-            String xmlString = read_xml_String(file);
-            LinkedList value = xmlMapper.readValue(read_xml_string(bis), LinkedList.class);
-            bis.close();
-            return value;
+            String xmlString = read_xml_string(file);
+            value = xmlMapper.readValue(xmlString, new TypeReference<LinkedList<HumanBeing>>() {});
         }
         catch(FileException e){
             printErr(e.getMessage());
         }  catch(IOException e){
-            printErr("File could not be accessed");
+            printErr(e.getMessage());
         }
-    return value;
+        return value;
     }
-    private String read_xml_String(File file){
+    private String read_xml_string(File file) throws IOException {
         BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
         byte[] bytes = bis.readAllBytes();
         String res = new String(bytes, StandardCharsets.UTF_8);
+        bis.close();
         return res;
     }
 

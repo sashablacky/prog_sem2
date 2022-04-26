@@ -1,19 +1,12 @@
 package collection;
 
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import data.HumanBeing;
-import exceptions.FileException;
 
-import java.beans.XMLDecoder;
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 
 import static io.OutputManager.print;
-import static io.OutputManager.printErr;
 
 //@Alias LinkedList<HumanBeing>  NameToNumbers;
 /**
@@ -28,6 +21,9 @@ public class HumanBeingCollectionManager implements CollectionManager<HumanBeing
         uniqueIds = new HashSet<>();
         collection = new LinkedList<>();
         initDate = java.time.LocalDateTime.now();
+    }
+    public void load(LinkedList<HumanBeing> data){
+        collection = data;
     }
     public int generateNextId(){
         if (collection.isEmpty())
@@ -159,54 +155,22 @@ public class HumanBeingCollectionManager implements CollectionManager<HumanBeing
             }
         }
     }
-    public long sum_of_minutes_of_waiting(){
+    public void sum_of_minutes_of_waiting(){
         long sum = 0;
         for (HumanBeing humanBeing: collection){
             sum += humanBeing.getMinutesOfWaiting();
         }
-        return sum;
+        print(sum);
     }
-    public HumanBeing min_by_minutes_of_waiting(){
+    public void min_by_minutes_of_waiting(){
         long min_minutes = collection.getFirst().getMinutesOfWaiting();
         HumanBeing res = collection.getFirst();
-        for (HumanBeing humanBeing: collection){
-            if(humanBeing.getMinutesOfWaiting() < min_minutes){
-            min_minutes = humanBeing.getMinutesOfWaiting();
-            res = humanBeing;
+        for (HumanBeing humanBeing: collection) {
+            if (humanBeing.getMinutesOfWaiting() < min_minutes) {
+                min_minutes = humanBeing.getMinutesOfWaiting();
+                res = humanBeing;
             }
         }
-        return res;
-    }
-    public void deserializeCollection(String xml){
-        try {
-            if (xml == null || xml.equals("")){
-                collection =  new LinkedList<HumanBeing>();
-            } else {
-                BufferedInputStream bis = new BufferedInputStream(new FileInputStream(xml));
-                XMLDecoder decoder = new XMLDecoder(bis);
-                LinkedList<HumanBeing> decodedCollection = (LinkedList<HumanBeing>) decoder.readObject();
-                decoder.close();
-                bis.close();
-                collection = decodedCollection;
-            }
-        } catch (FileException e){
-            printErr(e.toString());
-        } catch(IOException e){
-            printErr(e.toString());
-        } 
-    }
-
-    public String serializeCollection() throws IOException {
-        try {
-            if (collection == null || collection.isEmpty()) return "";
-
-            XmlMapper xmlMapper = new XmlMapper();
-
-            xmlMapper.writeValueAsString(new HumanBeingCollectionManager());
-
-        } catch(IOException e){
-            printErr(e.toString());
-        }
-        return null;
+        print(res.toString());
     }
 }

@@ -45,7 +45,7 @@ public class HumanBeing implements Collectionable {
         this.mood = mood;
         this.car = car;
     }
-
+    public HumanBeing(){}
     /** 
      * @return int
      */
@@ -57,7 +57,7 @@ public class HumanBeing implements Collectionable {
      * @param NewId
      */
     public void setId(int NewId){
-        id = NewId;
+        this.id = NewId;
     }
 
     /** 
@@ -69,7 +69,7 @@ public class HumanBeing implements Collectionable {
 
 
     public void setName(String NewName){
-        name = NewName;
+        this.name = NewName;
     }
 
     /**
@@ -77,7 +77,7 @@ public class HumanBeing implements Collectionable {
      */
     public Coordinates getCoordinates() {return coordinates; }
 
-    public void setCoordinates(Coordinates NewCoordinates) {coordinates = NewCoordinates; }
+    public void setCoordinates(Coordinates NewCoordinates) {this.coordinates = NewCoordinates; }
 
     /**
      * @return CreationDate
@@ -85,7 +85,7 @@ public class HumanBeing implements Collectionable {
 
     public Date getCreationDate() {return creationDate; }
 
-    public void setCreationDate(Date NewCreationDate) {creationDate = NewCreationDate; }
+    public void setCreationDate(Date NewCreationDate) {this.creationDate = NewCreationDate; }
     /** 
      * @return Boolean
      */
@@ -94,7 +94,7 @@ public class HumanBeing implements Collectionable {
     }
 
     public void setRealHero(Boolean NewRealHero){
-        realHero = NewRealHero;
+        this.realHero = NewRealHero;
     }
     /** 
      * @return Boolean
@@ -103,8 +103,8 @@ public class HumanBeing implements Collectionable {
         return realHero;
     }
 
-    public void setHasToothpick(Boolean NewRealHero){
-        realHero = NewRealHero;
+    public void setHasToothpick(Boolean hasToothpick){
+        this.hasToothpick = hasToothpick;
     }
 
     /** 
@@ -115,7 +115,7 @@ public class HumanBeing implements Collectionable {
     }
 
     public void setImpactSpeed(float NewImpactSpeed){
-        impactSpeed = NewImpactSpeed;
+        this.impactSpeed = NewImpactSpeed;
     }
 
     /** 
@@ -126,7 +126,7 @@ public class HumanBeing implements Collectionable {
     }
 
     public void setMinutesOfWaiting(long NewMinutesOfWaiting){
-        minutesOfWaiting = NewMinutesOfWaiting;
+        this.minutesOfWaiting = NewMinutesOfWaiting;
     }
 
     /**
@@ -137,7 +137,7 @@ public class HumanBeing implements Collectionable {
     }
 
     public void setWeaponType(WeaponType NewWeaponType){
-        weaponType = NewWeaponType;
+        this.weaponType = NewWeaponType;
     }
 
     /**
@@ -147,7 +147,7 @@ public class HumanBeing implements Collectionable {
         return mood;
     }
 
-    public void setMood(Mood NewMood) {mood = NewMood;}
+    public void setMood(Mood NewMood) {this.mood = NewMood;}
 
     /**
      * @return Car
@@ -156,7 +156,7 @@ public class HumanBeing implements Collectionable {
         return car;
     }
 
-    public void setCar(Car NewCar) {car = NewCar;}
+    public void setCar(Car NewCar) {this.car = NewCar;}
     
     /**
      * @return String
