@@ -2,6 +2,7 @@ package collection;
 
 import data.HumanBeing;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -143,8 +144,17 @@ public class HumanBeingCollectionManager implements CollectionManager<HumanBeing
         collection.removeLast();
         uniqueIds.remove(id);
         print("element #"+Integer.toString(id)+" successfully deleted");
-
     }
+
+    public void shuffle() {
+        Collections.shuffle(collection);
+        int id = 1;
+        for (HumanBeing humanBeing: collection){
+            humanBeing.setId(id);
+            id+=1;
+        }
+    }
+
     public void print_unique_impact_speed(){
         LinkedList<Float> speeds = new LinkedList<>();
         print("unique impact speeds:");
