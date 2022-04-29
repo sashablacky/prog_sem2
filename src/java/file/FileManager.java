@@ -7,6 +7,7 @@ import exceptions.*;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -24,13 +25,13 @@ public class FileManager implements FileInterface{
         path = pth;
     }
 
-    public int CreationDate = Integer.parseInt(null);
+    public LocalDateTime CreationDate = LocalDateTime.now();
 
-    public int getCreationDate(){
+    public LocalDateTime getCreationDate(){
         return CreationDate;
     }
 
-    public void setCreationDate(int NewCreationDate){this.CreationDate = NewCreationDate;}
+    public void setCreationDate(LocalDateTime NewCreationDate){this.CreationDate = NewCreationDate;}
 
     public FileManager(){
         path = null;
