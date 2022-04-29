@@ -1,9 +1,9 @@
 package data;
 
-public interface Validateable {
+public interface Validatable {
     /**
      * validates all fields after json deserialization
      * @return
      */
-    public boolean validate();
+    boolean validate();
 }

@@ -20,6 +20,7 @@ public class HumanBeing implements Collectionable {
     private Mood mood; //Поле может быть null
     private Car car; //Поле не может быть null
 
+
     /**
      * Constructor, set fields
      * @param name
@@ -167,16 +168,16 @@ public class HumanBeing implements Collectionable {
         String strCreationDate = dateFormat.format(creationDate);
         String s = "";
         s += "{\n";
-        s += "  \"id\" : " + Integer.toString(id) + ",\n";
+        s += "  \"id\" : " + id + ",\n";
         s += "  \"name\" : " + "\"" + name + "\"" + ",\n";
         s += "  \"coordinates\" : " + coordinates.toString() + ",\n";
         s += "  \"creationDate\" : " + "\"" + strCreationDate + "\"" + ",\n";
-        s += "  \"realHero\" : " + Boolean.toString(realHero) + ",\n";
-        s += "  \"hasToothpick\" : " + Boolean.toString(hasToothpick) + ",\n";
-        s += "  \"impactSpeed\" : " + Float.toString(impactSpeed) + ",\n";
-        s += "  \"minutesOfWaiting\" : " + Long.toString(minutesOfWaiting) + ",\n";
+        s += "  \"realHero\" : " + realHero + ",\n";
+        s += "  \"hasToothpick\" : " + hasToothpick + ",\n";
+        s += "  \"impactSpeed\" : " + impactSpeed + ",\n";
+        s += "  \"minutesOfWaiting\" : " + minutesOfWaiting + ",\n";
         if (mood!=null) s += "  \"weaponType\" : " + weaponType.toString() + ",\n";
-        if (mood!=null) s += "  \"mood\" : " + mood.toString() + ",\n";
+        if (mood!=null) s += "  \"mood\" : " + mood + ",\n";
         s += "  \"car\" : " + car.toString() + "\n";
         s += "}";
         return s;
@@ -197,8 +198,7 @@ public class HumanBeing implements Collectionable {
      * @return int
      */
     public int compareTo(Collectionable HumanBeing){
-        int res = Float.compare(this.impactSpeed, HumanBeing.getImpactSpeed());
-        return res;
+        return Float.compare(this.impactSpeed, HumanBeing.getImpactSpeed());
     }
 
     /** 
@@ -206,7 +206,7 @@ public class HumanBeing implements Collectionable {
      */
     public boolean validate(){
         return (
-            (id>0) && name!=null && name != "" &&
+            (id>0) && name!=null && !name.equals("") &&
             coordinates != null && coordinates.validate() && creationDate!=null && 
             realHero != null && hasToothpick != null && (impactSpeed<=64) &&
             car != null && car.validate()

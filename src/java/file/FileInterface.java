@@ -10,17 +10,17 @@ public interface FileInterface {
      * set path to file
      * @param path
      */
-    public void setPath(String path);
+    void setPath(String path);
 
     /**
      * read data
      * @return
      */
-    public LinkedList load();
-    public String read(String ScriptPath);
+    LinkedList load();
+    String read(String ScriptPath);
     /**
      * write data
      * @param collection
      */
-    public boolean write(Collection<HumanBeing> collection);
+    boolean write(Collection<HumanBeing> collection);
 }

@@ -23,6 +23,7 @@ public class Main {
         Map<String, String> env = System.getenv();
         String path = env.get("COLLECTION_PATH");
         if (args.length!=0){
+
             fileManager.setPath(args[0]);
             LinkedList<HumanBeing> data = fileManager.load();
             if (data.size()!=0) {

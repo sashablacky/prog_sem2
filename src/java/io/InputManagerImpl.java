@@ -45,7 +45,7 @@ public abstract class InputManagerImpl implements InputManager{
     }
 
     public Long readYCoord() throws InvalidNumberException{
-        Long y;
+        long y;
         try{
             y = Long.parseLong(scanner.nextLine());
         }
@@ -58,27 +58,20 @@ public abstract class InputManagerImpl implements InputManager{
     public Coordinates readCoords() throws InvalidNumberException{
         float x = readXCoord();
         Long y = readYCoord();
-        Coordinates coord = new Coordinates(x,y);
-        return coord;
+        return new Coordinates(x,y);
     }
     public Boolean parseBool() throws InvalidBooleanException{
         String buf = scanner.nextLine();
-        Boolean bool = null;
-        if (buf.toLowerCase().equals("true")){
-            bool = true;
-        } else if (buf.toLowerCase().equals("false")){
-            bool = false;
-        } else if (buf.toLowerCase().equals("")){
-            bool = null;
-        }
-        else{
-            throw new InvalidBooleanException("boolean must be true, false or null");
-        }
-        return bool;
+        return switch (buf.toLowerCase()) {
+            case "true" -> true;
+            case "false" -> false;
+            case "" -> null;
+            default -> throw new InvalidBooleanException("boolean must be true, false or null");
+        };
     }
 
     public Boolean readRealHero() throws InvalidBooleanException{
-        Boolean bool = null;
+        Boolean bool;
             bool = parseBool();
             if (bool == null)
             {
@@ -87,7 +80,7 @@ public abstract class InputManagerImpl implements InputManager{
         return bool;
     }
     public Boolean readHasToothpick() throws InvalidBooleanException{
-        Boolean bool = null;
+        Boolean bool;
             bool = parseBool();
             if (bool == null)
             {
@@ -109,7 +102,7 @@ public abstract class InputManagerImpl implements InputManager{
         return impactSpeed;
     }
     public Long readMinutesOfWaiting() throws InvalidNumberException{
-        Long minutesOfWaiting;
+        long minutesOfWaiting;
         try{
             minutesOfWaiting = Long.parseLong(scanner.nextLine());
         }
@@ -145,7 +138,7 @@ public abstract class InputManagerImpl implements InputManager{
         }
     }
     public Boolean readCoolness() throws InvalidBooleanException{
-        Boolean isCool = null;
+        Boolean isCool;
             isCool = parseBool();
             if (isCool == null)
             {
@@ -158,7 +151,7 @@ public abstract class InputManagerImpl implements InputManager{
         return new Car(isCool);
     }
     public HumanBeing readHumanBeing() throws InvalidDataException{
-        HumanBeing person = null;
+        HumanBeing person;
 
         String name = readName();
         Coordinates coords = readCoords();
@@ -178,7 +171,7 @@ public abstract class InputManagerImpl implements InputManager{
     public CommandWrapper readCommand(){
         String cmd = scanner.nextLine();
         if (cmd.contains(" ")){ //if command has argument
-            String arr [] = cmd.split(" ",2);
+            String[] arr = cmd.split(" ",2);
             cmd = arr[0];
             String arg = arr[1];
             return new CommandWrapper(cmd,arg);

@@ -7,5 +7,5 @@ import exceptions.InvalidDataException;
  * Command callback interface
  */
 public interface Command {
-    public void run(String arg) throws CommandException, InvalidDataException;
+    void run(String arg) throws CommandException, InvalidDataException;
 }

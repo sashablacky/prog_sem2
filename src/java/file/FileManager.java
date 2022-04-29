@@ -24,6 +24,14 @@ public class FileManager implements FileInterface{
         path = pth;
     }
 
+    public int CreationDate = Integer.parseInt(null);
+
+    public int getCreationDate(){
+        return CreationDate;
+    }
+
+    public void setCreationDate(int NewCreationDate){this.CreationDate = NewCreationDate;}
+
     public FileManager(){
         path = null;
     }
@@ -49,17 +57,14 @@ public class FileManager implements FileInterface{
             if (!file.exists()) throw new FileDoesNotExistException();
             if(!file.canRead()) throw new FileWrongPermissionsException("cannot read file");
             XmlMapper xmlMapper = new XmlMapper();
-            String xmlString = read_xml_string(file);
+            String xmlString = readXmlString(file);
             value = xmlMapper.readValue(xmlString, new TypeReference<LinkedList<HumanBeing>>() {});
-        }
-        catch(FileException e){
-            printErr(e.getMessage());
-        }  catch(IOException e){
+        } catch(IOException e){
             printErr(e.getMessage());
         }
         return value;
     }
-    private String read_xml_string(File file) throws IOException {
+    private String readXmlString(File file) throws IOException {
         BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
         byte[] bytes = bis.readAllBytes();
         String res = new String(bytes, StandardCharsets.UTF_8);
@@ -84,7 +89,7 @@ public class FileManager implements FileInterface{
             if(!file.exists()) {
                 print("file " + path +" does not exist, trying to create it");
                 create(file);
-            };
+            }
             if(!file.canWrite()) throw new FileWrongPermissionsException("Cannot write file");
             FileOutputStream fos = new FileOutputStream(file);
             XmlMapper mapper = new XmlMapper();

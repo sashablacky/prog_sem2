@@ -16,14 +16,14 @@ import java.util.Stack;
 import static io.OutputManager.print;
 import static io.OutputManager.printErr;
 public class CommandManager implements Commandable{
-    private Map<String,Command> map;
-    private CollectionManager<HumanBeing> collectionManager;
+    private final Map<String,Command> map;
+    private final CollectionManager<HumanBeing> collectionManager;
     private InputManager inputManager;
-    private FileInterface fileManager;
+    private final FileInterface fileManager;
     private boolean isRunning;
     private String currentScriptFileName;
 
-    private static Stack<String> callStack = new Stack<>();
+    private static final Stack<String> callStack = new Stack<>();
 
     public void clearStack(){
         callStack.clear();
@@ -45,9 +45,7 @@ public class CommandManager implements Commandable{
                 print(humanBeing.toString());
                 }
             });
-        addCommand("add", (a)->{
-            collectionManager.add(inputManager.readHumanBeing());
-        });
+        addCommand("add", (a)-> collectionManager.add(inputManager.readHumanBeing()));
         addCommand("update", (arg)->{
             int id = 0;
             if (arg == null || arg.equals("")){
@@ -80,9 +78,7 @@ public class CommandManager implements Commandable{
             collectionManager.removeByID(id);
             
         });
-        addCommand("clear", (a)->{
-            collectionManager.clear();
-        });
+        addCommand("clear", (a)-> collectionManager.clear());
         addCommand("save", (arg)->{
             if (!(arg == null ||arg.equals(""))) fileManager.setPath(arg);
             if (collectionManager.getCollection().isEmpty()) print("Collection is empty, nothing to save");
@@ -189,7 +185,7 @@ public class CommandManager implements Commandable{
         "remove_by_id id : удалить элемент из коллекции по его id",
         "clear : очистить коллекцию",
         "save : сохранить коллекцию в файл",
-        "load : прочитать коллекцию из файла"
+        "load : прочитать коллекцию из файла",
         "execute_script file_name : считать и исполнить скрипт из указанного файла. В скрипте содержатся команды в таком же виде, в котором их вводит пользователь в интерактивном режиме.",
         "exit : завершить программу (без сохранения в файл)",
         "remove_first : удалить первый элемент из коллекции",

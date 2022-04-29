@@ -1,6 +1,6 @@
 package data;
 
-public class Car implements Validateable {
+public class Car implements Validatable {
     private Boolean cool;
 
     public Car(Boolean howCool){
@@ -24,7 +24,7 @@ public class Car implements Validateable {
     public String toString(){
         String s = "";
         s += "{";
-        s += "  \"cool\" : " + Boolean.toString(cool) + "\n";
+        s += "  \"cool\" : " + cool + "\n";
         s += "}";
         return s;
     }

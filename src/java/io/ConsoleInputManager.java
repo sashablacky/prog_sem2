@@ -32,8 +32,7 @@ public class ConsoleInputManager extends InputManagerImpl{
         print("enter coordinates");
         float x = readXCoord();
         Long y = readYCoord();
-        Coordinates coord = new Coordinates(x,y);
-        return coord;
+        return new Coordinates(x,y);
     }
 
     @Override
@@ -82,7 +81,6 @@ public class ConsoleInputManager extends InputManagerImpl{
         WeaponType weaponType = readWeaponType();
         Mood mood = readMood();
         Car car = readCar();
-        HumanBeing person = new HumanBeing(name, coords, realHero, hasToothpick, impactSpeed, minutesOfWaiting, weaponType, mood, car);
-        return person;
+        return new HumanBeing(name, coords, realHero, hasToothpick, impactSpeed, minutesOfWaiting, weaponType, mood, car);
     }
 }

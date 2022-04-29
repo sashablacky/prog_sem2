@@ -14,8 +14,8 @@ import static io.OutputManager.print;
  */
 public class HumanBeingCollectionManager implements CollectionManager<HumanBeing> {
     private LinkedList<HumanBeing> collection;
-    private HashSet<Integer> uniqueIds;
-    private java.time.LocalDateTime initDate;
+    private final HashSet<Integer> uniqueIds;
+    private final java.time.LocalDateTime initDate;
 
     public HumanBeingCollectionManager(){
         uniqueIds = new HashSet<>();
@@ -29,9 +29,9 @@ public class HumanBeingCollectionManager implements CollectionManager<HumanBeing
         if (collection.isEmpty())
             return 1;
         else {
-            Integer id = collection.getLast().getId() + 1;
+            int id = collection.getLast().getId() + 1;
             if(uniqueIds.contains(id)){
-                while (uniqueIds.contains(id)) id+=1;
+                while (uniqueIds.contains(id)) id++;
             }
             uniqueIds.add(id);
             return id;
@@ -56,7 +56,7 @@ public class HumanBeingCollectionManager implements CollectionManager<HumanBeing
      * @return Information
      */
     public String getInfo(){
-        return "LinkedList of humans, size: " + Integer.toString(collection.size()) + ", initialization date: " + initDate.toString();
+        return "LinkedList of humans, size: " + collection.size() + ", initialization date: " + initDate.toString();
     }
 
     /**
@@ -95,7 +95,7 @@ public class HumanBeingCollectionManager implements CollectionManager<HumanBeing
             if (humanBeing.getId() == id){
                 collection.remove(humanBeing);
                 uniqueIds.remove(id);
-                print("element #"+Integer.toString(id)+" successfully deleted");
+                print("element #"+id+" successfully deleted");
                 return;
             }
         }
@@ -111,10 +111,10 @@ public class HumanBeingCollectionManager implements CollectionManager<HumanBeing
             if (humanBeing.getId() == id){
                 newHumanBeing.setId(id);
                 collection.set(idx, newHumanBeing);
-                print("element #"+Integer.toString(id)+" successfully updated");
+                print("element #"+id+" successfully updated");
                 return;
             }
-            idx += 1;
+            idx ++;
         }
     }
 
@@ -135,15 +135,24 @@ public class HumanBeingCollectionManager implements CollectionManager<HumanBeing
         int id = collection.getFirst().getId();
         collection.removeFirst();
         uniqueIds.remove(id);
-        print("element #"+Integer.toString(id)+" successfully deleted");
+        print("element #"+id+" successfully deleted");
 
     }
     public void removeLast(){
         int id = collection.getLast().getId();
         collection.removeLast();
         uniqueIds.remove(id);
-        print("element #"+Integer.toString(id)+" successfully deleted");
+        print("element #"+id+" successfully deleted");
 
+    }
+
+    public void shuffle() {
+        Collections.shuffle(collection);
+        int id = 1;
+        for (HumanBeing humanBeing: collection){
+            humanBeing.setId(id);
+            id++;
+        }
     }
     public void print_unique_impact_speed(){
         LinkedList<Float> speeds = new LinkedList<>();

@@ -1,5 +1,5 @@
 package data;
-public class Coordinates implements Validateable{
+public class Coordinates implements Validatable {
     private float x;
     private Long y; //Значение поля должно быть больше -123, Поле не может быть null
     public Coordinates(float x, Long y){
@@ -24,13 +24,13 @@ public class Coordinates implements Validateable{
     @Override
     public String toString(){
         String s = "";
-        s += "{\"x\" : " + Float.toString(x) + ", ";
-        s += "\"y\" : " + Long.toString(y) + "}";
+        s += "{\"x\" : " + x + ", ";
+        s += "\"y\" : " + y + "}";
         return s;
     }
 
     public boolean validate(){
-        return !(y==null || y.longValue()<=-123 || Float.isInfinite(x) || Float.isNaN(x));
+        return !(y==null || y <=-123 || Float.isInfinite(x) || Float.isNaN(x));
     }
 
 }

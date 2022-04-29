@@ -2,22 +2,22 @@ package data;
 /**
  * interface for objects that can be stored in collections
  */
-public interface Collectionable extends Comparable<Collectionable>, Validateable{
-    public int getId();
+public interface Collectionable extends Comparable<Collectionable>, Validatable {
+    int getId();
     /**
      * sets id, useful for replacing object in collection
      * @param ID
      */
-    public void setId(int ID);
+    void setId(int ID);
     
-    public float getImpactSpeed();
+    float getImpactSpeed();
 
-    public String getName();
+    String getName();
 
     /**
      * compairs two objects
      */
-    public int compareTo(Collectionable worker);
+    int compareTo(Collectionable worker);
 
-    public boolean validate();
+    boolean validate();
 }
