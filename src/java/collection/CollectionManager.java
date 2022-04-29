@@ -13,64 +13,64 @@ public interface CollectionManager<T> {
      * generates new unique ID for collection
      * @return
      */
-    int generateNextId();
+    public int generateNextId();
 
-    void sort();
+    public void sort();
     
-    LinkedList<T> getCollection();
+    public LinkedList<T> getCollection();
 
     /**
      * adds new element
      * @param element
      */
-    void add(T element);
+    public void add(T element);
 
     /**
      * get information about collection
      * @return info
      */
-    String getInfo();
+    public String getInfo();
 
     /**
      * checks if collection contains element with particular id
      * @param ID
      * @return
      */
-    boolean checkID(Integer ID);
+    public boolean checkID(Integer ID);
 
     /**
      * removes element by id
      * @param id
      */
-    void removeByID(Integer id);
+    public void removeByID(Integer id);
 
     /**
      * updates element by id
      * @param id
      * @param newElement
      */
-    void updateByID(Integer id, T newElement);
+    public void updateByID(Integer id, T newElement);
 
     /**
      * get collection size
      * @return
      */
-    int getSize();
+    public int getSize();
    
-    void clear();
+    public void clear();
 
-    void load(LinkedList<HumanBeing> data);
+    public void load(LinkedList<HumanBeing> data);
 
-    void removeFirst();
+    public void removeFirst();
 
-    void removeLast();
+    public void removeLast();
 
-    void shuffle();
+    public void shuffle();
 
-    void sum_of_minutes_of_waiting();
+    public void sum_of_minutes_of_waiting();
 
-    void min_by_minutes_of_waiting();
+    public void min_by_minutes_of_waiting();
 
-    void print_unique_impact_speed();
+    public void print_unique_impact_speed();
 
 }
